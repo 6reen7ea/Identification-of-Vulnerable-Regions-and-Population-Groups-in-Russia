@@ -1,175 +1,175 @@
-# Определение уязвимых регионов и групп населения России
+# Identifying Vulnerable Regions and Population Groups in Russia
 
-## 1. Описание проекта
-Дипломный проект выполнен в рамках задания «Лаборатории исследований гражданского общества» и направлен на выявление регионов России, наиболее уязвимых с точки зрения бедности и социально-экономического неблагополучия. Для анализа объединены данные Росстата (1990–2022 гг.) по доходам, демографии, здравоохранению, производству, розничной торговле и другим показателям.
+## Project Overview
 
-Кластеризация (Agglomerative Clustering, k=3) выделила три группы регионов:
-- **Бедные** (Северный Кавказ, Калмыкия, Крым, часть южной Сибири): высокая бедность и инвалидность, низкие доходы и экономическая активность.
-- **Богатые** (Крайний Север, Дальний Восток, Москва/МО): высокие доходы и экономическая активность, низкая бедность, но высокие показатели зависимостей.
-- **Средний уровень**: промежуточные значения по большинству показателей.
+This project was developed as part of a research initiative by the *Civil Society Research Laboratory*. Its goal is to identify the most vulnerable regions of Russia in terms of poverty and broader socio-economic conditions.
 
-Полное финальное заключение: [`notebooks/clusterization/04_final_conclusion.md`](notebooks/clusterization/04_final_conclusion.md)
+To achieve this, multiple datasets from **Rosstat (1990–2022)** were combined, covering:
 
----
+* income and wages
+* demographics
+* healthcare indicators
+* production and retail activity
+* social factors
 
-## 2. Цель и задачи
-**Цель:** определить социально-экономические кластеры регионов и выявить группы населения, наиболее подверженные бедности.
+Using clustering techniques, regions were grouped into three distinct socio-economic clusters:
 
-**Задачи:**
-1. Кластеризовать регионы на основе социально-экономических и демографических признаков.
-2. Определить регионы, наиболее нуждающиеся в поддержке.
-3. Описать уязвимые группы населения и их влияние на уровень бедности.
-4. Исследовать связи бедности с производством и потреблением.
-5. Зафиксировать дополнительные зависимости, связанные с социальным неблагополучием.
+* **Low-income regions** (North Caucasus, Kalmykia, Crimea, parts of Southern Siberia):
+  characterized by high poverty rates, higher disability levels, and low economic activity.
 
----
+* **High-income regions** (Far North, Far East, Moscow and Moscow Oblast):
+  high income and economic activity, low poverty, but higher dependency-related indicators.
 
-## 3. Данные
-Официальные данные Росстата и смежных источников:
-- **Экономика:** доходы населения, заработная плата, ВРП, производство, розничная торговля.  
-- **Демография:** численность и структура населения, рождаемость, младенческая смертность (город/село).  
-- **Социальные факторы:** расходы на социальную политику, инвалидность, алкоголизм и наркомания.  
-Период покрытия: 1990–2022 гг. (в модели используются последние доступные годы по каждому показателю).
+* **Middle group**:
+  regions with moderate values across most indicators.
+
+ Full final conclusion:
+[`notebooks/clusterization/04_final_conclusion.md`](notebooks/clusterization/04_final_conclusion.md)
 
 ---
 
-## 4. Методы
-- Объединение 15 очищенных таблиц в мастер-датасет (2015–2020).  
-- Логарифмирование и стандартизация признаков с сильной асимметрией.  
-- Сравнение методов кластеризации (KMeans, Agglomerative); подбор k.  
-- PCA для повышения интерпретируемости и снижения мультиколлинеарности.  
-- Метрики: Silhouette Score, Davies–Bouldin Index.  
-- Интерпретация: карта кластеров (folium), boxplot-распределения, таблица медиан, статистические тесты.
+## Objectives
+
+The main objective of this project is to identify socio-economic clusters of Russian regions and highlight population groups most affected by poverty.
+
+Key tasks include:
+
+1. Cluster regions based on socio-economic and demographic features
+2. Identify regions most in need of support
+3. Analyze vulnerable population groups and their relationship with poverty
+4. Explore the relationship between poverty and economic activity (production & consumption)
+5. Identify additional patterns associated with social inequality
 
 ---
 
-## 5. Ключевые результаты
-- **Кластер 0 (бедные, ~12 регионов):** низкие доходы/ВРП/розница, высокая доля соцрасходов, высокая рождаемость, инвалидность и сельская младенческая смертность.  
-- **Кластер 1 (богатые, ~12 регионов):** максимальные доходы/ВРП/розница, низкая бедность и сельская младенческая смертность; при этом выше показатели зависимостей и доля иждивенцев.  
-- **Кластер 2 (средний, ~61 регион):** промежуточные значения.
+## Data
 
-Связи: бедность обратно связана с экономической активностью (розница/производство на душу), положительно — с инвалидностью и долей иждивенцев.
+The analysis is based on official statistics from **Rosstat** and related sources.
+
+**Categories of data:**
+
+* **Economic indicators:** income, wages, GRP, production, retail turnover
+* **Demographics:** population size and structure, birth rate, infant mortality (urban/rural)
+* **Social factors:** social spending, disability rates, alcohol and drug-related statistics
+
+Time coverage: **1990–2022**
+For modeling, the most recent available values were used for each feature.
 
 ---
 
-## 6. Структура репозитория
+## Methodology
+
+* Merged **15 cleaned datasets** into a master dataset (2015–2020)
+* Applied **log transformation** and **standardization** for skewed features
+* Compared clustering methods: **KMeans vs. Agglomerative Clustering**
+* Selected optimal number of clusters (k)
+* Applied **PCA** to improve interpretability and reduce multicollinearity
+* Evaluated models using:
+
+  * Silhouette Score
+  * Davies–Bouldin Index
+
+**Interpretation tools:**
+
+* Interactive cluster map (Folium)
+* Boxplots and feature distributions
+* Median comparison tables
+* Statistical tests
+
+---
+
+## Key Findings
+
+* **Cluster 0 (Low-income, ~12 regions):**
+  low income, low GRP, low retail activity, high social spending, high birth rate, high disability, and high rural infant mortality
+
+* **Cluster 1 (High-income, ~12 regions):**
+  highest income, GRP, and retail activity; low poverty and rural infant mortality
+  however, higher dependency ratios and addiction-related indicators
+
+* **Cluster 2 (Middle group, ~61 regions):**
+  intermediate values across most features
+
+### Relationships
+
+* Poverty is **negatively correlated** with economic activity (production & retail per capita)
+* Poverty is **positively associated** with:
+
+  * disability rates
+  * dependency ratio
+
+---
+
+## Repository Structure
+
 ```
 ├── data/
-│   ├── raw/                     # исходные данные
-│   ├── clean/                   # очищенные/агрегированные датасеты
-│   └── geo/                     # геоданные и html-карта
+│   ├── raw/
+│   ├── clean/
+│   └── geo/
 ├── notebooks/
 │   ├── preprocessing/
-│   │   └── 00_data_preprocessing_and_standardization.ipynb
 │   ├── EDA/
-│   │   ├── 00_Datasets_Overview.ipynb
-│   │   ├── 01_EDA_poverty.ipynb
-│   │   ├── 02_EDA_income.ipynb
-│   │   ├── 03_EDA_welfare.ipynb
-│   │   ├── 04_EDA_gdp_per_capita.ipynb
-│   │   ├── 05_EDA_production_total.ipynb
-│   │   ├── 06_EDA_retail_per_capita.ipynb
-│   │   ├── 07_EDA_birth_rate_per_1000.ipynb
-│   │   ├── 08_EDA_infant_mortality_urban_rate.ipynb
-│   │   ├── 09_EDA_infant_mortality_rural_rate.ipynb
-│   │   ├── 10_EDA_dependent_percent.ipynb
-│   │   ├── 11_EDA_disabled_rate_per_1000.ipynb
-│   │   ├── 12_EDA_alcohol_rate.ipynb
-│   │   ├── 13_EDA_drugs_rate.ipynb
-│   │   ├── 14_EDA_addiction_rate.ipynb
-│   │   ├── 15_EDA_reg_production.ipynb
-│   │   ├── 16_EDA_master_df.ipynb
-│   │   └── 17_Statistical_Tests.ipynb
 │   ├── clusterization/
-│   │   ├── 01_master_dataset_creation.ipynb
-│   │   ├── 02_clustering_analysis.ipynb
-│   │   ├── 03_cluster_interpretation.ipynb
-│   │   └── 04_final_conclusion.md
 ├── outputs/
 ├── README.md
 └── requirements.txt
 ```
 
-
 ---
 
-## 7. Как запустить
-```bash
-# 1) установить зависимости
-pip install -r requirements.txt
+## How to Run
 
-# 2) запустить jupyter
+```bash
+pip install -r requirements.txt
 jupyter lab
 ```
-Открывайте ноутбуки из `notebooks/clusterization/` по порядку: 01 → 02 → 03. Итоговое заключение — в `04_final_conclusion.md`.
+
+Run notebooks in order:
+
+`clusterization/01 → 02 → 03`
+Final conclusions: `04_final_conclusion.md`
 
 ---
 
-## 8. Порядок запуска ноутбуков
+## Workflow
 
-1. **Предобработка данных**  
-   - `preprocessing/00_data_preprocessing_and_standardization.ipynb` — очистка данных и стандартизация названий регионов.
-
-2. **Исследовательский анализ данных (EDA)**  
-   - `EDA/00_Datasets_Overview.ipynb` — обзор всех доступных датасетов.  
-   - `EDA/01_EDA_poverty.ipynb` → `EDA/15_EDA_reg_production.ipynb` — анализ каждого датасета по отдельности.
-
-3. **Создание мастер-датасета**  
-   - `clusterization/01_master_dataset_creation.ipynb` — объединение всех очищенных таблиц в единый мастер-датасет.
-
-4. **EDA мастер-датасета**  
-   - `EDA/16_EDA_master_df.ipynb` — анализ объединённого мастер-датасета.
-
-5. **Статистические тесты**  
-   - `EDA/17_Statistical_Tests.ipynb` — проверка гипотез и статистических связей.
-
-6. **Кластеризация**  
-   - `clusterization/02_clustering_analysis.ipynb` — подбор признаков, количества кластеров и алгоритма.  
-   - `clusterization/03_cluster_interpretation.ipynb` — карта кластеров, распределения признаков и медианные значения.  
-   - `clusterization/04_final_conclusion.md` — итоговое заключение по проекту.
+1. Data preprocessing
+2. Exploratory Data Analysis (EDA)
+3. Master dataset creation
+4. Statistical testing
+5. Clustering and interpretation
 
 ---
 
-## 9. Лицензия и использование
-Проект предназначен для учебных целей. При использовании данных ориентируйтесь на лицензии и условия первоисточников (Росстат и др.).
+## Limitations
+
+* Data consistency issues across years (Rosstat methodology changes)
+* Regional naming inconsistencies
+* Log transformations may affect interpretability
+* Results describe **associations**, not causal relationships
 
 ---
 
-## 10. Источники данных
+## Data Sources
 
-Основные публичные источники (Росстат и смежные):
+Primary sources include Rosstat and related public databases:
 
-- **Бедность (доля населения ниже ПМ)** — Росстат:  
-  https://www.fedstat.ru/indicator/33460
-- **Доходы/зарплаты (реальные/номинальные)** — Росстат (соц. положение и уровень жизни):  
-  https://www.fedstat.ru/indicator/41697 · https://gks.ru/bgd/regl/b21_44/Main.htm
-- **ВРП на душу населения** — Росстат:  
-  https://showdata.gks.ru/report/278928/  · (см. также gross_regional_product_1996_2020.xls)
-- **Производство (отгруженные товары, работы/услуги)** — Росстат (regional_production_*):  
-  https://www.fedstat.ru/
-- **Оборот розничной торговли на душу** — Росстат:  
-  https://www.fedstat.ru/indicator/33533
-- **Расходы на социальную политику (доля бюджета)** — Росстат:  
-  https://www.fedstat.ru/indicator/59454
-- **Численность населения (по состоянию на 1 января)** — Росстат:  
-  https://www.fedstat.ru/indicator/31618
-- **Младенческая смертность (город/село)** — Росстат (child_mortality_*):  
-  https://www.fedstat.ru/indicator/37053
-- **Инвалидность по возрастным группам** — СФРИ:  
-  https://sfri.ru/analitika/chislennost/chislennost/chislennost-po-vozrastu
-- **Заболеваемость алкоголизмом и наркоманией (впервые установленный диагноз)** — Росстат:  
-  https://www.fedstat.ru/indicator/59454
-- **Новорожденные (помесячно)** — Росстат (newborn_2006_2022_monthly.csv):  
-  https://rosstat.gov.ru/folder/10705
-- **Работники / занятость** — Росстат (workers.csv, доля занятых к трудоспособным):  
-  https://www.fedstat.ru/
-- **Доп. ресурсы:** Портал «Если быть точным» https://tochno.st/problems ·  
-  Официальный портал статистики РФ https://www.fedstat.ru/
+* Poverty rates
+* Income & wages
+* GRP per capita
+* Production & retail
+* Social spending
+* Population statistics
+* Infant mortality
+* Disability statistics
+* Alcohol & drug-related indicators
 
-> Период покрытий: 1990–2022 гг. В моделировании использованы последние доступные годы по каждому показателю. Ссылки сгруппированы по тематикам, соответствующим файлам из `data/raw` и `data/clean`.
-
+(See full links in original dataset section)
 
 ---
 
-## 11. Автор
-Khamzat Dudaev
+## Author
+
+**Khamzat Dudaev**
+
