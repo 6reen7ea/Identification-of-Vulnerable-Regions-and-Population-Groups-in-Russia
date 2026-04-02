@@ -1,83 +1,86 @@
-# Финальное заключение по проекту
+# Final Project Conclusion
 
-## 1. Цель проекта
-Проект выполнен в рамках дипломного задания «Лаборатории исследований гражданского общества» и направлен на выявление социально-экономических различий между регионами России, определение наиболее уязвимых территорий и групп населения, а также установление факторов, влияющих на уровень бедности. 
+## 1. Project Goal
+This project was carried out as part of a thesis assignment for the “Laboratory for Civil Society Research” and aims to identify socio-economic differences across Russian regions, determine the most vulnerable areas and population groups, and uncover factors influencing poverty levels.
 
-## 2. Данные и источники
-В анализ были включены данные Росстата и смежных источников за 1990–2022 гг. (последние годы по каждому показателю), охватывающие:
-- уровень бедности, доходов, заработных плат;
-- социально-демографическую структуру (дети, пожилые, трудоспособное население);
-- уровень инвалидности и заболеваемости;
-- показатели рождаемости и младенческой смертности (город/село);
-- расходы на социальную политику;
-- валовой региональный продукт, производство, розничную торговлю;
-- показатели зависимости (алкоголизм, наркомания).
+## 2. Data and Sources
+The analysis is based on data from Rosstat and related sources for 1990–2022 (latest available years for each indicator), covering:
+- poverty levels, income, and wages;
+- socio-demographic structure (children, elderly, working-age population);
+- disability and morbidity indicators;
+- birth rates and infant mortality (urban/rural);
+- social policy expenditures;
+- gross regional product, production, and retail activity;
+- addiction indicators (alcoholism, drug use).
 
-В итоговой модели использовались 11 признаков, прошедших логарифмирование и стандартизацию.
+The final model used 11 features that were log-transformed and standardized.
 
-## 3. Методы
-1. **Предварительная обработка**:
-   - Очистка данных и согласование наименований регионов.
-   - Объединение 15 отдельных таблиц в мастер-датасет.
-   - Логарифмирование признаков с сильной асимметрией.
-2. **Кластеризация**:
-   - Алгоритмы: KMeans и Agglomerative Clustering.
-   - Снижение размерности (PCA, 2 компоненты) для устранения мультиколлинеарности и повышения интерпретируемости.
-   - Оценка качества: Silhouette Score и Davies–Bouldin Index.
-3. **Выбор модели**:
-   - Финальный вариант — Agglomerative Clustering, k=3, без признака `poverty_percent` (чтобы анализировать факторы бедности, а не саму бедность напрямую).
-4. **Интерпретация**:
-   - Построение карты кластеров и boxplot-распределений признаков.
-   - Вычисление медианных значений по кластерам.
-   - Статистические тесты (корреляция, p-value) для выявления связей.
+## 3. Methods
+1. **Preprocessing**:
+   - Data cleaning and harmonization of region names.
+   - Merging 15 separate tables into a master dataset.
+   - Log transformation of highly skewed features.
 
-## 4. Результаты кластеризации
-Выделено три устойчивых кластера регионов:
+2. **Clustering**:
+   - Algorithms: KMeans and Agglomerative Clustering.
+   - Dimensionality reduction (PCA, 2 components) to reduce multicollinearity and improve interpretability.
+   - Evaluation metrics: Silhouette Score and Davies–Bouldin Index.
 
-- **Кластер 0 (бедные регионы, 12 субъектов)**  
-  Наиболее высокий уровень бедности (медиана 22,75%), низкие доходы, ВРП, производство и розничная торговля на душу населения.  
-  Высокая доля расходов на социальную политику, высокая рождаемость, высокая инвалидность и младенческая смертность в сельской местности.  
-  География: Северный Кавказ, Калмыкия, Крым, часть южной Сибири.
+3. **Model Selection**:
+   - Final model — Agglomerative Clustering, k=3, excluding the `poverty_percent` feature (to focus on drivers of poverty rather than poverty itself).
 
-- **Кластер 1 (богатые регионы, 12 субъектов)**  
-  Наиболее высокие доходы, ВРП, производство и розничная торговля.  
-  Низкий уровень бедности (9,45%), низкая инвалидность и сельская младенческая смертность.  
-  При этом — наибольшие показатели алкогольной и наркотической зависимости, высокая доля иждивенцев.  
-  География: Крайний Север, Дальний Восток, Москва и Московская область.
+4. **Interpretation**:
+   - Cluster map visualization and boxplot distributions.
+   - Median feature analysis by cluster.
+   - Statistical tests (correlations, p-values) to identify relationships.
 
-- **Кластер 2 (средний уровень, 61 субъект)**  
-  Промежуточные значения по большинству показателей, умеренный уровень бедности (13,8%).  
-  География: центральная часть страны, западные регионы и значительная часть Сибири.
+## 4. Clustering Results
+Three stable clusters of regions were identified:
 
-## 5. Уязвимые группы населения
-Статистический анализ показал:
-- **Инвалиды (особенно 51–60 лет)** — сильная прямая связь с бедностью (r > 0,23, p < 0,0001).
-- **Пожилые** — умеренная связь с бедностью.
-- **Дети** — косвенная связь, вероятно культурно обусловленная.
-- **Трудоспособное население** — обратная связь (чем меньше доля, тем выше бедность).
+- **Cluster 0 (low-income regions, 12 regions)**  
+  Highest poverty level (median 22.75%), low income, GRP, production, and retail per capita.  
+  High social spending, high birth rates, high disability rates, and elevated rural infant mortality.  
+  Geography: North Caucasus, Kalmykia, Crimea, parts of southern Siberia.
 
-## 6. Связь бедности с экономической активностью
-- Розничная торговля на душу населения: r = –0,735, p < 0,0001.  
-- Производство на душу населения: r = –0,319, p < 0,0001.  
-Вывод: бедность тесно связана с уровнем экономического развития региона.
+- **Cluster 1 (high-income regions, 12 regions)**  
+  Highest income, GRP, production, and retail activity.  
+  Low poverty (9.45%), low disability, and low rural infant mortality.  
+  However, higher levels of alcohol and drug addiction, and a higher dependency ratio.  
+  Geography: Far North, Far East, Moscow and Moscow region.
 
-## 7. Дополнительные зависимости
-- **Сельская младенческая смертность**: в бедных регионах в 3–4 раза выше.  
-- **Алкогольная и наркотическая зависимость**: выше в экономически развитых регионах.
+- **Cluster 2 (middle group, 61 regions)**  
+  Intermediate values across most indicators, moderate poverty (13.8%).  
+  Geography: central Russia, western regions, and much of Siberia.
 
-## 8. Ограничения исследования
-- Возможные методологические изменения Росстата по ряду показателей.
-- Различия в написании регионов и состав субъектов (Тюменская область/АО, Архангельская область/НАО).
-- Лог-преобразования могут усложнять прямое восприятие абсолютных значений.
+## 5. Vulnerable Population Groups
+Statistical analysis showed:
+- **Disabled individuals (especially ages 51–60)** — strong positive relationship with poverty (r > 0.23, p < 0.0001).
+- **Elderly population** — moderate relationship.
+- **Children** — indirect relationship, likely culturally driven.
+- **Working-age population** — inverse relationship (lower share → higher poverty).
 
-## 9. Заключение
-Кластеризация регионов по социально-экономическим и демографическим характеристикам позволила выделить территории с наибольшей уязвимостью и описать факторы, влияющие на бедность.  
-Результаты могут быть использованы для адресного распределения социальной и инфраструктурной поддержки, а также для разработки региональных программ по снижению бедности и улучшению качества жизни.
+## 6. Relationship Between Poverty and Economic Activity
+- Retail per capita: r = –0.735, p < 0.0001  
+- Production per capita: r = –0.319, p < 0.0001  
 
-## 10. Практическое применение результатов
-Полученные результаты могут быть использованы:
-- для **адресного распределения социальной и инфраструктурной поддержки** между регионами;
-- при **разработке региональных программ** по снижению бедности и повышению качества жизни;
-- в **аналитической и исследовательской работе** органов власти, НКО и независимых аналитических центров;
-- для **мониторинга эффективности мер** и оценки изменений в социально-экономическом положении регионов во времени.
+Conclusion: poverty is strongly linked to the level of economic development.
 
+## 7. Additional Findings
+- **Rural infant mortality**: 3–4 times higher in poorer regions.  
+- **Addiction rates (alcohol, drugs)**: higher in economically developed regions.
+
+## 8. Study Limitations
+- Possible methodological changes in Rosstat data over time.
+- Inconsistencies in region naming and administrative structure (e.g., Tyumen region vs autonomous okrugs).
+- Log transformations may complicate interpretation of absolute values.
+
+## 9. Conclusion
+Clustering regions based on socio-economic and demographic characteristics allowed identification of the most vulnerable territories and key factors influencing poverty.  
+The results can be used for targeted allocation of social and infrastructure support, as well as for developing regional poverty reduction strategies.
+
+## 10. Practical Applications
+The results can be applied:
+- for **targeted distribution of social and infrastructure support** across regions;
+- in **developing regional programs** to reduce poverty and improve quality of life;
+- in **analytical and research work** by government agencies, NGOs, and think tanks;
+- for **monitoring policy effectiveness** and tracking socio-economic changes over time.
